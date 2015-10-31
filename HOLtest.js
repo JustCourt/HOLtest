@@ -1,55 +1,85 @@
-alert("Connected");
 
 // Question object
-function question(a1, a2, a3, a4){
-		this.a1 = a1;
-		this.a2 = a2;
-		this.a3 = a3;
-		this.a4 = a4;
+function question(text, ans){
+		this.text = text;
+		this.ans = ans;
 };
 
 // Answer Object
- function answer(url,value){
+ function answer(url){
 	 this.url = url;
-	 this.value = value;
  };
- 
- //Creates array of questions
-questions = [];
-for (i=0; i<2; i++){
-	ans=[];
-	
-	//Creates array of answers per question
-	for (j=0; j<4; j++){
-		a=new answer("image"+i+"_"+j+".jpg", "L");
-		ans.push(a);
-	}
-	questions.push(new question(ans[0],ans[1],ans[2],ans[3]));
-}
 
 // Actions when document is loaded
 $(document).ready(function(){
 	
-	var q=1;
-	for (var i=1; i<5; i++){
-		var id = "#i"+i;
-		imgSrc= "images/image"+q+"_"+i+".jpg";
-		$(id).attr("src", imgSrc);
-	};
+	// initalize user answers
+	var user = [];
 	
-	//Changes question when image is clicked
-	$(".answer").click(function(){
-		$(".answer").fadeOut();
-		q++;
-		for (var i=1; i<5; i++){
-		var id = "#i"+i;
-		imgSrc= "images/image"+q+"_"+i+".jpg";
-		$(id).attr("src", imgSrc);
-		$( ".answer" ).css("background-color","purple");
-		$(".answer").fadeIn();
-
-		}
+	// set question index
+	var q=0;
+	
+	// create question instances
+	var questions = [];
+	for (var i= 0; i<3; i++){
+			var ans = [];
+			var text = "Question " + i;
+			for (var j=1; j<5; j++){
+			imgSrc= "images/image"+i+"_"+j+".jpg";
+			ans.push(new answer(imgSrc));
+			};
+			questions.push(new question(text,ans));
+	}
+	
+	// Change opacity of answer when held
+	$(".answer").mousedown(function(){
+		$(this).fadeTo(0.75);
 	});
+	$( ".continue" ).text(questions[q].text);	
+	
+	// Changes question when image is clicked
+	$(".answer").click(function(){
+		
+		// Adds answer chosen to record
+		user.push(this.id);
+		
+		q++;
+		
+		
+		
+		// If all questions have been answered
+		if (q == questions.length)
+		{
+			$(".answer").css("display","none");
+			$( ".end" ).css("display","block");
+			console.log(user);
+		}
+		
+		// Changes to continue page, hides answers, shows next question
+		else
+		{
+			$( ".answer" ).css("display", "none");				// Set answers to hidden
+			$( ".continue" ).text(questions[q].text);			// Set continue screen to show next question
+			$( ".continue" ).css("display","block");			// Show continue screen
+			
+		}
+
+	});
+	
+	// When continue is clicked
+	$( ".continue" ).click(function()
+		{
+			for (var i=0; i<4; i++) 						// Change answers to new images
+			{
+				var id = "#i"+(i+1);
+				$(id).attr("src", questions[q].ans[i].url);
+			}
+			$( ".continue" ).css("display", "none"); 		// Set continue screen to hidden
+
+			$( ".answer" ).css("display", "inline-block");	 // Set answer display to not hidden
+
+		});
 	$( ".answer" ).css("background-color","blue");	
 
 });
+

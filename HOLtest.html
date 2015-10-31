@@ -21,19 +21,40 @@
 	.answer
 	{
 		border: 1px solid black;
-		display: inline-block;
+		display: none;
 		height: 40%;
 		width: 40%;
 		margin: 2.5%;
 		background-color: red;
 	}
+	.continue
+	{
+		display:block;
+		height:100%;
+		width:100%;
+		font-size:36px;
+		font-family:Arial;
+		padding:100px;
+	}
+	.end
+	{
+		display:none;
+		height:100%;
+		width:100%;
+		font-size:36px;
+		font-family:Arial;
+		padding:100px;
+	}
 	.answer img
 	{
 		height: 100%;
 		width: 100%;
+
 	}
 	#para{
 		color:purple;
+		font-size:36px;
+		font-family:Arial;
 	}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -46,12 +67,14 @@
 
 <body>
 <div class="layout">
+	<div class="continue"></div>
+	<div class="end">END</div>
 	<div id="1" class="answer"><img id="i1"></img></div>
-	<div id ="2" class="answer"><img id="i2"></img></div>
+	<div id="2" class="answer"><img id="i2"></img></div>
 	<div id="3" class="answer"><img id="i3"></img></div>
 	<div id="4" class="answer"><img id="i4"></img></div>
 </div>
-<p id="para">No </p>
+
 </body>
 
 </html>
