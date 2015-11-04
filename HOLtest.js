@@ -1,14 +1,8 @@
 
 // Question object
-function question(text, ans){
+function question(text){
 		this.text = text;
-		this.ans = ans;
 };
-
-// Answer Object
- function answer(url){
-	 this.url = url;
- };
 
 // Actions when document is loaded
 $(document).ready(function(){
@@ -18,18 +12,20 @@ $(document).ready(function(){
 	
 	// set question index
 	var q=0;
+	var gallery = [];
 	
-	// create question instances
+	// create question instances, add image urls to gallery
 	var questions = [];
 	for (var i= 0; i<3; i++){
-			var ans = [];
-			var text = "Question " + i;
-			for (var j=1; j<5; j++){
-			imgSrc= "images/image"+i+"_"+j+".jpg";
-			ans.push(new answer(imgSrc));
-			};
-			questions.push(new question(text,ans));
-	}
+		for (var j=0; j<4; j++){
+			im = new Image();
+			im.src = "images/image" + i + "_" + j + ".jpg";
+			gallery.push(im);
+		}
+		
+		var text = $("#q"+i).text();
+		questions.push(new question(text));
+	};
 	
 	// Change opacity of answer when held
 	$(".answer").mousedown(function(){
@@ -53,6 +49,17 @@ $(document).ready(function(){
 			$(".answer").css("display","none");
 			$( ".end" ).css("display","block");
 			console.log(user);
+			
+			// Create csv file recording data and download
+			var csvContent = "data:text/csv;charset=utf-8,";
+			userString = user.join(",");
+			csvContent += userString;
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "my_data.csv");
+			link.click();
+
 		}
 		
 		// Changes to continue page, hides answers, shows next question
@@ -72,7 +79,7 @@ $(document).ready(function(){
 			for (var i=0; i<4; i++) 						// Change answers to new images
 			{
 				var id = "#i"+(i+1);
-				$(id).attr("src", questions[q].ans[i].url);
+				$(id).attr("src", gallery[q*4+i].src);
 			}
 			$( ".continue" ).css("display", "none"); 		// Set continue screen to hidden
 
