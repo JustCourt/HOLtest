@@ -18,14 +18,17 @@ $(document).ready(function(){
 	var questions = [];
 	for (var i= 0; i<3; i++){
 		for (var j=0; j<4; j++){
+			ans = [];
 			im = new Image();
 			im.src = "images/image" + i + "_" + j + ".jpg";
-			gallery.push(im);
+			im.value=($("#q"+i + " li:eq(" + j + ")").text());			//add answer value from html li to image
+			gallery.push(im);                          
 		}
 		
-		var text = $("#q"+i).text();
+		var text = $("#q"+i).attr("name");
 		questions.push(new question(text));
 	};
+
 	
 	// Change opacity of answer when held
 	$(".answer").mousedown(function(){
@@ -37,7 +40,7 @@ $(document).ready(function(){
 	$(".answer").click(function(){
 		
 		// Adds answer chosen to record
-		user.push(this.id);
+		user.push($(this).attr("name"));
 		
 		q++;
 		
@@ -80,6 +83,7 @@ $(document).ready(function(){
 			{
 				var id = "#i"+(i+1);
 				$(id).attr("src", gallery[q*4+i].src);
+				$("#a"+i).attr("name", gallery[q*4+i].value);//change name of image div to image value
 			}
 			$( ".continue" ).css("display", "none"); 		// Set continue screen to hidden
 
