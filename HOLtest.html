@@ -45,6 +45,12 @@
 		font-family:Arial;
 		padding:100px;
 	}
+	.end #submit{
+		display:block;
+		border: 1px black solid;
+		font-size:24px;
+		font-style:none;
+	}
 	.answer img
 	{
 		height: 100%;
@@ -62,6 +68,15 @@
 		font-size:36px;
 		font-family:Arial;
 	}
+	#back{
+		border:1px solid black;
+		position:absolute;
+		left:20px;
+		bottom:20px;
+		font-family:Verdana, Arial;
+		padding:10px;
+		display:none;
+	}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="HOLtest.js"></script>
@@ -74,11 +89,14 @@
 <body>
 <div class="layout">
 	<div class="continue"></div>
-	<div class="end">END</div>
+	<div class="end">END
+		<a id="submit">Submit</a>
+	</div>
 	<div id="a0" class="answer"><img id="i1"></img></div>
 	<div id="a1" class="answer"><img id="i2"></img></div>
 	<div id="a2" class="answer"><img id="i3"></img></div>
 	<div id="a3" class="answer"><img id="i4"></img></div>
+	<div id="back">BACK</div>
 </div>
 
 <ul class="questionText" id="q0" name="Question 1">

@@ -4,6 +4,21 @@ function question(text){
 		this.text = text;
 };
 
+// Set answers for question q to be displayed
+function displayAnswers(q, gallery){
+	
+	for (var i=0; i<4; i++) 						// Change answers to new images
+	{
+		var id = "#i"+(i+1);
+		$(id).attr("src", gallery[q*4+i].src);
+		$("#a"+i).attr("name", gallery[q*4+i].value);//change name of image div to image value
+	}
+	$( ".continue" ).css("display", "none");	// Set continue screen to hidden
+	$( ".answer" ).css("display", "inline-block");	 // Set answer display to not hidden
+
+		
+};
+
 // Actions when document is loaded
 $(document).ready(function(){
 	
@@ -50,6 +65,7 @@ $(document).ready(function(){
 		if (q == questions.length)
 		{
 			$(".answer").css("display","none");
+			$( "#button" ).css('display','none');
 			$( ".end" ).css("display","block");
 			console.log(user);
 			
@@ -58,10 +74,9 @@ $(document).ready(function(){
 			userString = user.join(",");
 			csvContent += userString;
 			var encodedUri = encodeURI(csvContent);
-			var link = document.createElement("a");
-			link.setAttribute("href", encodedUri);
-			link.setAttribute("download", "my_data.csv");
-			link.click();
+			$link = $("#submit");
+			$link.attr("href", encodedUri);
+			$link.attr("download", "my_data.csv");
 
 		}
 		
@@ -76,21 +91,32 @@ $(document).ready(function(){
 
 	});
 	
-	// When continue is clicked
+	// When continue screen is clicked
 	$( ".continue" ).click(function()
 		{
-			for (var i=0; i<4; i++) 						// Change answers to new images
-			{
-				var id = "#i"+(i+1);
-				$(id).attr("src", gallery[q*4+i].src);
-				$("#a"+i).attr("name", gallery[q*4+i].value);//change name of image div to image value
-			}
-			$( ".continue" ).css("display", "none"); 		// Set continue screen to hidden
-
-			$( ".answer" ).css("display", "inline-block");	 // Set answer display to not hidden
-
+			$( "#back" ).css("display","inline");
+			displayAnswers(q,gallery);
 		});
-	$( ".answer" ).css("background-color","blue");	
+
+	
+	//If BACK button is clicked
+	$("#back").click(function()
+	{
+		if ($( ".continue" ).css('display') == 'block'){
+			q = q-1;
+			user.splice(-1,1);
+			displayAnswers(q,gallery);
+		}
+		else if ($( ".continue" ).css('display') == 'none'){
+			$( ".answer" ).css("display", "none");
+			$( ".continue" ).css("display", "block");
+			if (q==0){
+				$("#back").css("display","hidden");
+			}
+		};
+	});
+	$( ".answer" ).css("background-color","blue");
+	
 
 });
 
