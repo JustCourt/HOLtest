@@ -14,6 +14,7 @@ function displayAnswers(q, gallery){
 		$("#a"+i).attr("name", gallery[q*4+i].value);//change name of image div to image value
 	}
 	$( ".continue" ).css("display", "none");	// Set continue screen to hidden
+	$( ".end" ).css("display", "none");	// Set end screen to hidden
 	$( ".answer" ).css("display", "inline-block");	 // Set answer display to not hidden
 
 		
@@ -102,16 +103,20 @@ $(document).ready(function(){
 	//If BACK button is clicked
 	$("#back").click(function()
 	{
-		if ($( ".continue" ).css('display') == 'block'){
+		//going back to previous question
+		if ($( ".continue" ).css('display') == 'block' || $(".end").css('display')=='block'){
 			q = q-1;
+			console.log(q);
 			user.splice(-1,1);
 			displayAnswers(q,gallery);
 		}
+		//going back to continue screen
 		else if ($( ".continue" ).css('display') == 'none'){
 			$( ".answer" ).css("display", "none");
+			$( ".continue" ).text(questions[q].text);
 			$( ".continue" ).css("display", "block");
 			if (q==0){
-				$("#back").css("display","hidden");
+				$("#back").css("display","none");
 			}
 		};
 	});
