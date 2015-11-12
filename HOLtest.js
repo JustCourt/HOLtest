@@ -1,7 +1,8 @@
 
 // Question object
-function question(text){
+function question(text, ans){
 		this.text = text;
+		this.ans = ans;
 };
 
 // Set answers for question q to be displayed
@@ -25,6 +26,7 @@ $(document).ready(function(){
 	
 	// initalize user answers
 	var user = [];
+	var score = 0;
 	
 	// set question index
 	var q=0;
@@ -37,12 +39,12 @@ $(document).ready(function(){
 			ans = [];
 			im = new Image();
 			im.src = "images/image" + i + "_" + j + ".jpg";
-			im.value=($("#q"+i + " li:eq(" + j + ")").text());			//add answer value from html li to image
 			gallery.push(im);                          
 		}
 		
-		var text = $("#q"+i).attr("name");
-		questions.push(new question(text));
+		var text = $("#q"+i).text();
+		var ans = $("#q"+i).attr("name");
+		questions.push(new question(text, ans));
 	};
 
 	
@@ -54,9 +56,16 @@ $(document).ready(function(){
 	
 	// Changes question when image is clicked
 	$(".answer").click(function(){
+
 		
 		// Adds answer chosen to record
-		user.push($(this).attr("name"));
+		var answer = $(this).attr("id");
+		user.push(answer);
+		
+		// Add to score if correct answer
+		if (answer == questions[q].ans){
+			score += 1;
+		}
 		
 		q++;
 		
@@ -65,8 +74,9 @@ $(document).ready(function(){
 		// If all questions have been answered
 		if (q == questions.length)
 		{
-			$(".answer").css("display","none");
+			$( ".answer" ).css("display","none");
 			$( "#button" ).css('display','none');
+			$( ".end" ).html($( ".end" ).html() + "<br/> " + score);
 			$( ".end" ).css("display","block");
 			console.log(user);
 			
@@ -106,7 +116,6 @@ $(document).ready(function(){
 		//going back to previous question
 		if ($( ".continue" ).css('display') == 'block' || $(".end").css('display')=='block'){
 			q = q-1;
-			console.log(q);
 			user.splice(-1,1);
 			displayAnswers(q,gallery);
 		}
