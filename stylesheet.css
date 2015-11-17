@@ -39,13 +39,12 @@
 		width:100%;
 		font-size:36px;
 		font-family:Arial;
-		padding:100px;
+		padding:20%;
 	}
 	.end #submit{
 		display:inline-block;
-		border: 1px black solid;
 		font-size:24px;
-		font-style:none;
+		text-decoration:none;
 	}
 	.answer img
 	{
@@ -72,3 +71,4 @@
 		font-family:Verdana, Arial;
 		padding:10px;
 		display:none;
+	}

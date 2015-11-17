@@ -26,7 +26,6 @@ $(document).ready(function(){
 	
 	// initalize user answers
 	var user = [];
-	var score = 0;
 	
 	// set question index
 	var q=0;
@@ -62,11 +61,6 @@ $(document).ready(function(){
 		var answer = $(this).attr("id");
 		user.push(answer);
 		
-		// Add to score if correct answer
-		if (answer == questions[q].ans){
-			score += 1;
-		}
-		
 		q++;
 		
 		
@@ -76,7 +70,15 @@ $(document).ready(function(){
 		{
 			$( ".answer" ).css("display","none");
 			$( "#button" ).css('display','none');
-			$( ".end" ).html($( ".end" ).html() + "<br/> " + score);
+			
+			// Loop through answers and add to score if correct
+			score=0;
+			for (var i=0; i<q; i++){
+				if (user[i] == questions[i].ans){
+					score ++;
+				}
+			}
+			$( "#score" ).text(score);
 			$( ".end" ).css("display","block");
 			console.log(user);
 			
