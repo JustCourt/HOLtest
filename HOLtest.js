@@ -5,6 +5,8 @@ function question(text, ans){
 		this.ans = ans;
 };
 
+document.body.style.background="blue";
+
 // Set answers for question q to be displayed
 function displayAnswers(q, gallery){
 	
