@@ -5,36 +5,22 @@
 		margin: 0;
 		padding: 0;
 	}
-	.layout
-	{
-		display: block;
-		height: 100%;
-		width: 100%;
-		margin: 0px;
-		overflow: hidden;
-		padding: 0px;
-	}
 	.answer
 	{
-		border: 1px solid black;
-		display: none;
-		height: 40%;
-		width: 40%;
 		margin: 2.5%;
-		background-color: red;
+		display: inline-block;
 	}
 	.continue
 	{
 		display:block;
-		height:100%;
-		width:100%;
 		font-size:36px;
 		font-family:Arial;
 		padding:100px;
+		height:100%;
+		width:100%;
 	}
 	.end
 	{
-		display:none;
 		height:100%;
 		width:100%;
 		font-size:36px;
@@ -48,15 +34,12 @@
 	}
 	.answer img
 	{
-		height: 100%;
-		width: 100%;
-
+		height: 300px;
+		width: 500px;
 	}
 	.questionText{
-		display:none;
 	}
 	.answerText{
-		display:none;
 	}
 	#para{
 		color:purple;
